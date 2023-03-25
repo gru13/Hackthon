@@ -2,7 +2,9 @@ import tkinter
 from tkinter import *
 from os import open
 def encryption():
-    open('user_interface.py')
+    global window
+    window.destroy()
+    import user_interface
 
 window = tkinter.Tk()
 window.geometry("1000x700")
