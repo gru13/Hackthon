@@ -7,11 +7,21 @@ from Encryption import *
 
 
 root = tk.Tk()
+
+background = Image.open("bg.png")
+background = background.resize((1440,720))
+background = ImageTk.PhotoImage(background)
+tk.Label(root,image=background).place(x=0,y=0,relwidth=1,relheight=1)
+
 root.geometry("1440x720")
 root.title("Encryption")
+root.maxsize(height=720,width=1440)
+root.minsize(height=720,width=1440)
 file_path = None
-canvas = tk.Canvas(root, width=1200, height=500)
+canvas = None
+canvas = tk.Canvas(root, width=1100, height=500)
 canvas.pack()
+
 
 def handle_number():
     global number_entry
@@ -53,15 +63,15 @@ def open_image():
 
 
 button = tk.Button(root, text="Select Image", command=open_image)
-button.pack()
+button.pack(anchor="s")
 
 
 number_entry = tk.Entry(root)
-number_entry.pack()
+number_entry.pack(anchor="s")
 
 
 submit_button = tk.Button(root, text="Encryption", command=handle_number)
-submit_button.pack()
+submit_button.pack(anchor="s")
 
 
 root.mainloop()
