@@ -57,10 +57,12 @@ def cipher_de(img,K):
         Encry += list(K@img[i:i+4])
     Encry = array(Encry)
     Encry = Encry.reshape(512,512)
+    Encry = array(Encry,dtype=uint8)
     return Encry
 def cipher_de_rgb(img,K):
     b,g,r  = split(img)
     Encry  = merge([cipher_de(r,K),cipher_de(g,K),cipher_de(b,K)])
+    Encry = array(Encry,dtype=uint8)
     return Encry
 
 def show(h):
@@ -69,27 +71,47 @@ def show(h):
     imshow("ECC",img)
     waitKey(3000)
 
-def image(save_name,image):
+def save_image(save_name,image):
     chdir(getcwd())
-    ima = resize(image,(512,512),interpolation = INTER_LINEAR)
-    imwrite(save_name,ima)
+    image = image.astype('uint8')
+    image = image.clip(0, 255)
+    image = resize(image,(512,512),interpolation = INTER_LINEAR)
+    imwrite(save_name, image)
 
 
+def Encryption(img_name,pa,pb):
+    G=(1,6) # Generating Point 
+    na,nb= pa,pb  # private keys of user a and user b
+    P = 137 # prime field
+    o = 152
+    K = Key(G,na,nb,P,o)
+    ima = imread(img_name)
+    ima = resize(ima,(512,512))
+    encr = cipher_de_rgb(ima,K)
+    print(img_name)
 
 
+if __name__ == "__main__":
+    G=(1,6) # Generating Point 
+    na,nb= 13, 17  # private keys of user a and user b
+    P = 137 # prime field
+    o = 152
+    K = Key(G,na,nb,P,o)
+    
+    
+    ima = imread("leo.png",0)
+    # ima = imread("dd.png",0)
 
+    ima = resize(ima,(512,512))
+    show(ima)
+    r = cipher_de(ima,K)
+    show(r)
+    r = array(r,dtype=uint8)
+   
+    save_image("leo.png",r)
+    show(cipher_de(r,K))
+    
+    # show(cipher_de_rgb(cipher_de_rgb(ima,K),K))
 
-G=(1,6) # Generating Point 
-na,nb= 13, 17  # private keys of user a and user b
-P = 137 # prime field
-o = 152
-K = Key(G,na,nb,P,o)
-
-ima = imread('g.png')
-ima = resize(ima,(512,512))
-show(ima)
-show(cipher_de_rgb(ima,K))
-show(cipher_de_rgb(cipher_de_rgb(ima,K),K))
-
-destroyAllWindows()
+    destroyAllWindows()
 
