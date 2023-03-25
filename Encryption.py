@@ -1,7 +1,7 @@
 from numpy import array,uint8,mod
 from cv2 import imshow, imread,imwrite,INTER_LINEAR,resize,waitKey,destroyAllWindows,split,merge
-from key import Key
 from os import getcwd,chdir
+from tinyec.ec import *
 
 def Key(Gen_point:tuple, private_key_a:int, private_key_b:int, prime_field:int, order_field:int)->list[list]:
     G = Gen_point # Generating Point 
