@@ -11,7 +11,8 @@ root = tk.Tk()
 background = Image.open("bg.png")
 background = background.resize((1440,720))
 background = ImageTk.PhotoImage(background)
-tk.Label(root,image=background).place(x=0,y=0,relwidth=1,relheight=1)
+
+tk.Label(root,image=background).place(x=0,y=0,relwidth=1,relheight=1)#background image
 
 root.geometry("1440x720")
 root.title("Encryption")
@@ -27,9 +28,11 @@ def handle_number():
     global number_entry
     global submit_button
     global root
+    global fr
     number = int(number_entry.get())
     number_entry.destroy()
     submit_button.destroy()
+    fr.destroy()
 
     Exit = tk.Button(root,text="exit",command=lambda:root.destroy())
     Exit.pack()
@@ -65,12 +68,13 @@ def open_image():
 button = tk.Button(root, text="Select Image", command=open_image)
 button.pack(anchor="s")
 
-
+fr = tk.Label(root,text="Enter four digit passcode")
+fr.pack()
 number_entry = tk.Entry(root)
 number_entry.pack(anchor="s")
 
 
-submit_button = tk.Button(root, text="Encryption", command=handle_number)
+submit_button = tk.Button(root, text="Decrypt", command=handle_number)
 submit_button.pack(anchor="s")
 
 
