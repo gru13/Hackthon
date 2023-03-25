@@ -88,7 +88,10 @@ def Encryption(img_name,pa,pb):
     ima = imread(img_name)
     ima = resize(ima,(512,512))
     encr = cipher_de_rgb(ima,K)
-    print(img_name)
+    imagename = img_name.split(".")
+    imagename = imagename[0]+"_Modified.png"
+    save_image(imagename,encr)
+    return imagename
 
 
 if __name__ == "__main__":
