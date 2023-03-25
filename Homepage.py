@@ -1,7 +1,8 @@
 import tkinter 
 from tkinter import *
+from os import open
 def encryption():
-    exec(open('user_interface.py').read())
+    open('user_interface.py')
 
 window = tkinter.Tk()
 window.geometry("1000x700")
